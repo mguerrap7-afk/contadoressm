@@ -1,12 +1,19 @@
-import { Component, signal } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
+import { Component, signal } from "@angular/core";
 
 @Component({
-  imports: [RouterOutlet],
   selector: 'app-root',
-  styleUrl: './app.scss',
-  templateUrl: './app.html',
+  standalone: true,
+  template: `
+    <h1>CONTADOR</h1>
+    <button (click)="sumar()">+</button>
+    <button (click)="restar()">-</button>
+    <p>{{ contador() }}</p>
+  `,
+  styleUrls: ['./app.scss']
 })
 export class App {
-  protected readonly title = signal('contadoressm');
+  protected contador = signal<number>(0);
+
+  sumar(): void { this.contador.update(v => v + 1); }
+  restar(): void { this.contador.update(v => v - 1); }
 }
